@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vibe | Premium Apparel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- Lucide icons for quick premium icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">VIBE</a>
+        <nav class="header-nav">
+            <a href="index.html" class="nav-link" style="color:white">Home</a>
+            <a href="explore.html" class="nav-link">Explore</a>
+            <a href="favorites.html" class="nav-link">Favorites</a>
+        </nav>
+        <div class="header-actions">
+            <button id="cart-toggle" class="nav-btn" title="Market Cart">
+                <i data-lucide="shopping-bag"></i>
+                <span id="cart-count">0</span>
+            </button>
+            <button id="favorites-toggle" class="nav-btn">
+                <i data-lucide="heart"></i>
+                <span id="favorites-count">0</span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1 class="glitch" data-text="ELEVATE YOUR STYLE.">ELEVATE YOUR STYLE.</h1>
+                <p class="hero-subtext">Discover our exclusive collection of premium hats, tailored jeans, and handcrafted bags.</p>
+                <a href="explore.html" class="cta-btn">Explore Collection</a>
+            </div>
+            <div class="hero-bg-animated"></div>
+        </section>
+
+        <section class="products-section">
+            <div class="section-header">
+                <h2 class="featured-title">
+                    <span class="word">Featured</span> 
+                    <span class="word">Arrivals</span>
+                </h2>
+                <div class="filters">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="hats">Hats</button>
+                    <button class="filter-btn" data-filter="jeans">Denim</button>
+                    <button class="filter-btn" data-filter="shoes">Shoes</button>
+                    <button class="filter-btn" data-filter="apparel">Apparel</button>
+                    <button class="filter-btn" data-filter="accessories">Accessories</button>
+                    <button class="filter-btn" data-filter="bags">Bags</button>
+                </div>
+            </div>
+            
+            <div id="product-grid" class="product-grid">
+                <!-- Products dynamically inserted here -->
+            </div>
+        </section>
+
+        <section class="contact-section">
+            <div class="section-header center">
+                <h2>Visit Us</h2>
+                <p>Drop by our flagship store in Mostaganem to experience the collection in person.</p>
+            </div>
+            
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-card">
+                        <i data-lucide="map-pin"></i>
+                        <div>
+                            <h3>Location</h3>
+                            <p>Centre Ville, Mostaganem<br>27000, Algeria</p>
+                        </div>
+                    </div>
+                    <div class="contact-card">
+                        <i data-lucide="phone"></i>
+                        <div>
+                            <h3>Contact</h3>
+                            <p>+213 555 12 34 56<br>vibe.apparel.mostaganem@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="map-container">
+                    <iframe 
+                        src="https://maps.google.com/maps?q=Centre%20Ville,%20Mostaganem,%20Algeria&t=&z=14&ie=UTF8&iwloc=&output=embed" 
+                        width="100%" 
+                        height="100%" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Cart / Market Panel -->
+    <aside id="cart-panel" class="favorites-panel cart-panel">
+        <div class="panel-header">
+            <h2>Your Market</h2>
+            <button id="close-cart" class="close-btn"><i data-lucide="x"></i></button>
+        </div>
+        <div id="cart-list" class="favorites-list">
+            <div class="empty-state">Your market is empty.</div>
+        </div>
+        <div class="cart-footer" id="cart-footer" style="display:none">
+            <div class="cart-total"><span>Total</span><span id="cart-total-price">$0.00</span></div>
+            <a href="checkout.html" class="checkout-btn">Proceed to Checkout <i data-lucide="arrow-right"></i></a>
+        </div>
+    </aside>
+
+    <aside id="favorites-panel" class="favorites-panel">
+        <div class="panel-header">
+            <h2>Your Favorites</h2>
+            <button id="close-favorites" class="close-btn"><i data-lucide="x"></i></button>
+        </div>
+        <div id="favorites-list" class="favorites-list">
+            <div class="empty-state">No favorites yet.</div>
+        </div>
+    </aside>
+
+    <!-- Product Zoom Modal -->
+    <div id="product-modal" class="product-modal">
+        <div class="modal-content">
+            <button id="close-modal" class="close-btn modal-close"><i data-lucide="x"></i></button>
+            <div class="modal-body">
+                <div class="modal-img-container">
+                    <img id="modal-img" src="" alt="Product">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="panel-overlay" class="panel-overlay"></div>
+
+    <!-- GSAP and ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <script src="renderer.js"></script>
+</body>
+</html>
