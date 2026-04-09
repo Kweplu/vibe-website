@@ -143,16 +143,59 @@ header {
     z-index: 2;
 }
 
-.hero h1 {
+/* Hero Title — word-by-word slide-up */
+.hero-title {
     font-size: 5rem;
-    line-height: 1.1;
+    line-height: 1.15;
     font-weight: 800;
     margin-bottom: 1.5rem;
+    display: block;
+}
+
+/* Each word in h1 */
+.hw {
+    display: inline-block;
     background: linear-gradient(135deg, #fff 30%, #a0a0ab 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    animation: fadeInUp 1s ease-out forwards;
+    opacity: 0;
+    transform: translateY(50px);
+    animation: wordRise 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: calc(var(--i) * 0.18s + 0.1s);
+    margin-right: 0.25em;
+}
+
+/* Each word in subtitle */
+.pw {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: wordFade 0.7s ease forwards;
+    animation-delay: calc(var(--i) * 0.06s + 0.65s);
+    margin-right: 0.25em;
+}
+
+/* CTA Button */
+.hero-btn {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: wordFade 0.8s ease forwards;
+    animation-delay: 1.6s;
+}
+
+@keyframes wordRise {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes wordFade {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .hero p,
@@ -163,10 +206,8 @@ header {
     font-style: italic;
     color: rgba(255,255,255,0.65);
     letter-spacing: 0.18rem;
-    line-height: 1.9;
+    line-height: 2;
     margin-bottom: 2.5rem;
-    animation: fadeInUp 1s ease-out 0.2s forwards;
-    opacity: 0;
 }
 
 .cta-btn {
@@ -183,8 +224,6 @@ header {
     border-radius: 30px;
     cursor: pointer;
     transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
-    animation: fadeInUp 1s ease-out 0.4s forwards;
-    opacity: 0;
 }
 
 .cta-btn:hover {

@@ -315,7 +315,7 @@ function updateCartUI() {
 // Initial render
 renderProducts();
 updateFavoritesUI();
-updateCartUI(); // sync cart count from localStorage on page load
+updateCartUI();
 
 // Register GSAP ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);
@@ -327,73 +327,80 @@ function initScrollAnimations() {
     scrollTriggers.forEach(t => t.kill());
     scrollTriggers = [];
 
-    // Animate the products section container itself
+    // ── Featured Arrivals title — word by word slide-up ──────────────────
+    const featuredTitle = document.querySelector('.featured-title');
     const productsSection = document.querySelector('.products-section');
-    if (productsSection) {
-        const trigger = ScrollTrigger.create({
-            trigger: productsSection,
-            start: "top 80%",
-            animation: gsap.from(productsSection, {
-                y: 100,
-                opacity: 0,
-                duration: 1,
-                ease: "power2.out"
-            }),
-            toggleActions: "play none none none" // Only play once when scrolling down
-        });
-        scrollTriggers.push(trigger);
+    if (featuredTitle && productsSection) {
+        const titleWords = wrapWords(featuredTitle, 'feat-word');
+        if (titleWords.length) {
+            gsap.set(titleWords, { yPercent: 110 });
+            const trigger = ScrollTrigger.create({
+                trigger: productsSection,
+                start: 'top 75%',
+                animation: gsap.to(titleWords, {
+                    yPercent: 0,
+                    duration: 1.3,
+                    stagger: 0.12,
+                    ease: 'expo.out'
+                }),
+                toggleActions: 'play none none none'
+            });
+            scrollTriggers.push(trigger);
+        }
     }
 
-    // Animate the title words one by one
-    const titleWords = gsap.utils.toArray('.featured-title .word');
-    if (titleWords.length > 0) {
-        const trigger = ScrollTrigger.create({
-            trigger: productsSection,
-            start: "top 70%",
-            animation: gsap.from(titleWords, {
-                y: 40,
-                opacity: 0,
-                duration: 0.8,
-                stagger: 0.3, // Word by word stagger
-                ease: "back.out(1.7)"
-            }),
-            toggleActions: "play none none reverse"
-        });
-        scrollTriggers.push(trigger);
-    }
-
-    // Animate product cards staggering in exactly 0.5s apart as requested
+    // ── Product cards stagger in ─────────────────────────────────────────
     const productCards = gsap.utils.toArray('.product-card');
     if (productCards.length > 0) {
         const trigger = ScrollTrigger.create({
             trigger: '.product-grid',
-            start: "top 80%", 
+            start: 'top 80%',
             animation: gsap.from(productCards, {
                 y: 80,
                 opacity: 0,
                 duration: 0.8,
-                stagger: 0.5, // The requested 0.5s stagger between cards
-                ease: "power2.out"
+                stagger: 0.12,
+                ease: 'power2.out'
             }),
-            toggleActions: "play none none reverse"
+            toggleActions: 'play none none none'
         });
         scrollTriggers.push(trigger);
     }
 
-    // Animate contact cards and map
+    // ── Contact / Visit Us heading ───────────────────────────────────────
     const contactSection = document.querySelector('.contact-section');
+    const contactH2 = contactSection ? contactSection.querySelector('h2') : null;
+    if (contactH2) {
+        const cWords = wrapWords(contactH2, 'contact-word');
+        if (cWords.length) {
+            gsap.set(cWords, { yPercent: 110 });
+            ScrollTrigger.create({
+                trigger: contactSection,
+                start: 'top 80%',
+                animation: gsap.to(cWords, {
+                    yPercent: 0,
+                    duration: 1.2,
+                    stagger: 0.1,
+                    ease: 'expo.out'
+                }),
+                toggleActions: 'play none none none'
+            });
+        }
+    }
+
+    // ── Contact cards and map fade in ────────────────────────────────────
     if (contactSection) {
         const trigger = ScrollTrigger.create({
             trigger: contactSection,
-            start: "top 80%",
-            animation: gsap.from(".contact-card, .map-container", {
+            start: 'top 75%',
+            animation: gsap.from('.contact-card, .map-container', {
                 y: 50,
                 opacity: 0,
-                duration: 0.8,
-                stagger: 0.3,
-                ease: "power3.out"
+                duration: 0.9,
+                stagger: 0.2,
+                ease: 'power3.out'
             }),
-            toggleActions: "play none none reverse"
+            toggleActions: 'play none none none'
         });
         scrollTriggers.push(trigger);
     }
